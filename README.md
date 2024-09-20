@@ -1,5 +1,6 @@
-markdown
-Copiar código
+Aquí tienes el README completo con el **Paso 1** incluido:
+
+```markdown
 # Proyecto Surcos 3D a Audio
 
 Este proyecto convierte los vértices de un archivo OBJ 3D en una señal de audio, utilizando las variaciones geométricas para modular la señal. Se asegura que la señal de salida tenga al menos una duración mínima de 3 segundos y permite exportar los resultados en formato `.wav`.
@@ -7,10 +8,11 @@ Este proyecto convierte los vértices de un archivo OBJ 3D en una señal de audi
 ## Requisitos
 Asegúrate de tener instaladas las siguientes dependencias. Puedes instalar todas con el archivo `requirements.txt` incluido:
 
-numpy librosa scipy
-
-perl
-Copiar código
+```
+numpy
+librosa
+scipy
+```
 
 ## Instrucciones
 
@@ -24,49 +26,59 @@ Si no tienes `virtualenv` instalado, puedes hacerlo ejecutando el siguiente coma
 
 ```bash
 pip install virtualenv
-Crear el Entorno Virtual
+```
+
+#### Crear el Entorno Virtual
+
 Una vez instalado, crea un entorno virtual para el proyecto. Estando en el directorio raíz del proyecto, ejecuta:
 
-bash
-Copiar código
+```bash
 virtualenv envSurcos
-Esto creará un directorio llamado envSurcos que contendrá los archivos del entorno virtual.
+```
 
-Activar el Entorno Virtual
+Esto creará un directorio llamado `envSurcos` que contendrá los archivos del entorno virtual.
+
+#### Activar el Entorno Virtual
+
 Para activar el entorno virtual, ejecuta el siguiente comando:
 
 En macOS y Linux:
-
-bash
-Copiar código
+```bash
 source envSurcos/bin/activate
+```
+
 En Windows:
-
-bash
-Copiar código
+```bash
 envSurcos\Scripts\activate
-Cuando el entorno virtual está activado, verás que el prefijo (envSurcos) aparece al inicio de la línea de tu terminal. Esto indica que ahora estás usando el entorno virtual y todas las dependencias se instalarán en él, sin afectar tu sistema global.
+```
 
-Instalar Dependencias
+Cuando el entorno virtual está activado, verás que el prefijo `(envSurcos)` aparece al inicio de la línea de tu terminal. Esto indica que ahora estás usando el entorno virtual y todas las dependencias se instalarán en él, sin afectar tu sistema global.
+
+#### Instalar Dependencias
+
 Con el entorno virtual activado, instala las dependencias del proyecto ejecutando:
 
-bash
-Copiar código
+```bash
 pip install -r requirements.txt
+```
+
 Esto instalará todas las librerías necesarias para ejecutar el proyecto.
 
-Paso 2: Ejecución del Script
+### Paso 2: Ejecución del Script
+
 El proyecto incluye dos scripts principales que realizan el proceso de conversión de un archivo OBJ a audio. Asegúrate de que el archivo OBJ está presente en el directorio raíz, y sigue los pasos a continuación.
 
-Script para Conversión 3D a Audio
+#### Script para Conversión 3D a Audio
+
 Este script toma un archivo OBJ 3D y convierte los vértices en una señal de audio. Se asegura de que la señal tenga al menos 3 segundos de duración.
 
-Estructura del Script
-Verificación de la existencia del archivo OBJ: Si no se encuentra el archivo, se lanza un mensaje de error claro.
-Procesamiento de los vértices: Se leen los vértices del archivo OBJ y se convierten en una señal de audio modulada.
-Excepciones claras: El script maneja los errores más comunes, como archivos faltantes o problemas al escribir el archivo de salida.
-python
-Copiar código
+##### Estructura del Script
+
+- **Verificación de la existencia del archivo OBJ**: Si no se encuentra el archivo, se lanza un mensaje de error claro.
+- **Procesamiento de los vértices**: Se leen los vértices del archivo OBJ y se convierten en una señal de audio modulada.
+- **Excepciones claras**: El script maneja los errores más comunes, como archivos faltantes o problemas al escribir el archivo de salida.
+
+```python
 import os
 import numpy as np
 import librosa
@@ -132,14 +144,23 @@ except FileNotFoundError as fnf_error:
     print(fnf_error)
 except Exception as e:
     print(f"Se ha producido un error: {e}")
-Exportar el Audio
-El archivo de audio generado se guardará como Audio.wav en la raíz del proyecto. Si hay algún problema con la ruta o el archivo de salida, se mostrará un error claro.
+```
 
-Paso 3: Ejecución y Renderizado de la Espiral en Blender
+#### Exportar el Audio
+
+El archivo de audio generado se guardará como `Audio.wav` en la raíz del proyecto. Si hay algún problema con la ruta o el archivo de salida, se mostrará un error claro.
+
+### Paso 3: Ejecución y Renderizado de la Espiral en Blender
+
 El siguiente script se utiliza para generar la geometría 3D de la espiral basada en un archivo de audio y luego renderizarla en Blender. Asegúrate de tener Blender instalado y configurado correctamente.
 
-bash
-Copiar código
+```bash
 # Ejecutar Blender desde la línea de comandos
 blender --background --python surcos3d.py
+```
+
 Este script generará una espiral en Blender y la exportará como un archivo OBJ, que luego puede ser usado en el script de conversión a audio.
+
+```
+
+Con este README, todos los pasos están explicados claramente, incluyendo la configuración del entorno virtual, la ejecución de los scripts y la gestión de posibles excepciones relacionadas con los archivos necesarios.
