@@ -1,0 +1,37 @@
+# Ignorar el entorno virtual
+envSurcos/
+
+# Ignorar archivos y carpetas temporales de Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignorar archivos de configuración de editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignorar archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de Blender
+*.blend1
+*.blend2
+
+# Ignorar archivos OBJ y MTL generados
+*.obj
+*.mtl
+
+# Ignorar archivos de audio generados
+*.wav
+*.mp3
+*.ogg
+
+# Ignorar archivos de imágenes generados
+*.png
+*.jpg
+*.jpeg
+*.bmp
+
