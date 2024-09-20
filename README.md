@@ -1,9 +1,7 @@
-Aquí tienes el README completo con el **Paso 1** incluido:
-
 ```markdown
 # Proyecto Surcos 3D a Audio
 
-Este proyecto convierte los vértices de un archivo OBJ 3D en una señal de audio, utilizando las variaciones geométricas para modular la señal. Se asegura que la señal de salida tenga al menos una duración mínima de 3 segundos y permite exportar los resultados en formato `.wav`.
+Este proyecto convierte una canción en una representación geométrica de surcos (como en un disco de vinilo) y luego reconvierte esa geometría en una señal de audio. Se asegura que la señal de salida tenga al menos una duración mínima de 3 segundos y permite exportar los resultados en formato `.wav`.
 
 ## Requisitos
 Asegúrate de tener instaladas las siguientes dependencias. Puedes instalar todas con el archivo `requirements.txt` incluido:
@@ -13,6 +11,8 @@ numpy
 librosa
 scipy
 ```
+
+Además, necesitarás tener Blender instalado para ejecutar los scripts que generan las geometrías en 3D.
 
 ## Instrucciones
 
@@ -64,13 +64,30 @@ pip install -r requirements.txt
 
 Esto instalará todas las librerías necesarias para ejecutar el proyecto.
 
-### Paso 2: Ejecución del Script
+### Paso 2: Análisis de la Canción y Generación de la Espiral en Blender
 
-El proyecto incluye dos scripts principales que realizan el proceso de conversión de un archivo OBJ a audio. Asegúrate de que el archivo OBJ está presente en el directorio raíz, y sigue los pasos a continuación.
+El siguiente script se utiliza para analizar una canción, convertirla a geometría de surcos (como en un disco de vinilo) y renderizarla en Blender. Asegúrate de tener Blender instalado y configurado correctamente antes de proceder.
+
+#### Ejecución y Renderizado de la Espiral
+
+Para ejecutar Blender desde la línea de comandos y generar la geometría de la espiral, sigue estos pasos:
+
+1. Coloca el archivo de audio que deseas analizar en la raíz del proyecto con el nombre `musica.mp3`.
+2. Abre la terminal en el directorio del proyecto y ejecuta el siguiente comando:
+
+```bash
+blender --background --python surcos3d.py
+```
+
+Este comando ejecutará el script `surcos3d.py`, que analizará la canción y generará una espiral en Blender basada en los datos del audio. Luego, exportará la espiral generada como un archivo OBJ y también realizará un renderizado en formato de imagen.
+
+### Paso 3: Conversión de la Geometría de la Espiral a Audio
+
+Una vez que se haya generado la espiral 3D, el siguiente paso es reconvertir esa geometría en una señal de audio. Esto se hace con el siguiente script.
 
 #### Script para Conversión 3D a Audio
 
-Este script toma un archivo OBJ 3D y convierte los vértices en una señal de audio. Se asegura de que la señal tenga al menos 3 segundos de duración.
+Este script toma el archivo OBJ 3D generado en el paso anterior y convierte los vértices de la espiral en una señal de audio. Se asegura de que la señal tenga al menos 3 segundos de duración.
 
 ##### Estructura del Script
 
@@ -86,11 +103,11 @@ import scipy.io.wavfile as wav
 from scipy.signal import resample
 
 # Asegurar que el archivo OBJ existe
-obj_filepath = "./Modelo3d.obj"  # Personaliza la ruta al archivo OBJ
-wav_output = "./Audio.wav"       # Personaliza la ruta para el archivo de audio
+obj_filepath = "./espiral.obj"  # Ruta al archivo OBJ generado en el paso anterior
+wav_output = "./Audio.wav"       # Ruta para el archivo de salida de audio
 
 if not os.path.exists(obj_filepath):
-    raise FileNotFoundError(f"El archivo {obj_filepath} no existe. Por favor, asegúrate de proporcionar la ruta correcta.")
+    raise FileNotFoundError(f"El archivo {obj_filepath} no existe. Por favor, asegúrate de que la espiral fue generada correctamente.")
 
 # Cargar los vértices desde el archivo OBJ
 def load_vertices_from_obj(filepath):
@@ -149,18 +166,4 @@ except Exception as e:
 #### Exportar el Audio
 
 El archivo de audio generado se guardará como `Audio.wav` en la raíz del proyecto. Si hay algún problema con la ruta o el archivo de salida, se mostrará un error claro.
-
-### Paso 3: Ejecución y Renderizado de la Espiral en Blender
-
-El siguiente script se utiliza para generar la geometría 3D de la espiral basada en un archivo de audio y luego renderizarla en Blender. Asegúrate de tener Blender instalado y configurado correctamente.
-
-```bash
-# Ejecutar Blender desde la línea de comandos
-blender --background --python surcos3d.py
 ```
-
-Este script generará una espiral en Blender y la exportará como un archivo OBJ, que luego puede ser usado en el script de conversión a audio.
-
-```
-
-Con este README, todos los pasos están explicados claramente, incluyendo la configuración del entorno virtual, la ejecución de los scripts y la gestión de posibles excepciones relacionadas con los archivos necesarios.
